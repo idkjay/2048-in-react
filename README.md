@@ -1,3 +1,11 @@
+1. Initialize Grid
+2. Swipe left
+3. Swipe right
+4. Swipe up
+5. Swipe down
+6. Check if game over
+7. Reset
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
