@@ -36,6 +36,33 @@ function App() {
 }
 
 const Block = ({ num }) => {
-  return <div>{num}</div>
+  const { blockStyle } = style;
+
+  return (
+    <div
+      style={{
+        ...blockStyle,
+        color: num === 2 || num === 4 ? "#645B52" : "#F7F4EF",
+      }}
+    >
+      {num}
+    </div>
+  );
+};
+
+const style = {
+  blockStyle: {
+    height: 80,
+    width: 80,
+    background: "lightgray",
+    margin: 3,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 45,
+    fontWeight: "800",
+    color: "white",
+  }
 }
+
 export default App;
