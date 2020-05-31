@@ -9,8 +9,24 @@ function App() {
   ])
 
   return (
-    <div>{JSON.stringify(data)}</div>
+    <div>
+      {data.map((row, oneIndex) => {
+        return (
+          <div style={{ display: "flex"}} key={oneIndex}>
+            {row.map((digit, index) => (
+              <Block 
+                num={digit}
+                key={index}
+              />
+            ))}
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
+const Block = ({ num }) => {
+  return <div>{num}</div>
+}
 export default App;
