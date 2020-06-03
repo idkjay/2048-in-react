@@ -4,7 +4,9 @@ import { useEvent } from './util'
 
 function App() {
 
-  const LEFT_ARROW = 37
+  const LEFT_ARROW = 37;
+  const RIGHT_ARROW = 39;
+  
   const [data, setData] = useState([
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -140,6 +142,11 @@ function App() {
     switch (event.keyCode) {
       case LEFT_ARROW:
         swipeLeft();
+        break;
+    }
+    switch (event.keyCode) {
+      case RIGHT_ARROW:
+        swipeRight();
         break;
     }
   }
