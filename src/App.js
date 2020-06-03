@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import cloneDeep from 'lodash.clonedeep';
+import { useEvent } from './util'
 
 function App() {
+
+  const LEFT_ARROW = 37
   const [data, setData] = useState([
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -88,6 +91,14 @@ function App() {
     }
   };
 
+  const handleKeyDown = event =>{
+    switch (event.keyCode) {
+      case LEFT_ARROW:
+        swipeLeft();
+        break;
+    }
+  }
+
   // check game over
 
   //reset
@@ -95,6 +106,8 @@ function App() {
   useEffect(() => {
     initialize();
   }, [])
+
+  useEvent("keydown", handleKeyDown);
 
   return (
     <div
