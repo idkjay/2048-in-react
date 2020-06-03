@@ -8,6 +8,16 @@ function App() {
     [0, 0, 0, 0]
   ])
 
+  //initialize
+
+  //add number, add  an item to the grid
+
+  //swipe right, left, up, down
+
+  // check game over
+
+  //reset
+
   return (
     <div
       style={{
