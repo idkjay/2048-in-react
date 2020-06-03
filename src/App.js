@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import cloneDeep from 'lodash.clonedeep';
 
 function App() {
   const [data, setData] = useState([
@@ -9,6 +10,15 @@ function App() {
   ])
 
   //initialize
+  const initialize = () => {
+    let newGrid = cloneDeep(data);
+    let newClone = cloneDeep(data);
+    console.log(newClone);
+
+    addNumber(newGrid);
+    addNumber(newGrid);
+    setData(newGrid)
+  }
 
   //add number, add  an item to the grid
   const addNumber = (newGrid) => {
@@ -36,6 +46,10 @@ function App() {
   // check game over
 
   //reset
+
+  useEffect(() => {
+    initialize();
+  }, [])
 
   return (
     <div
