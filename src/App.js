@@ -9,6 +9,10 @@ function App() {
   const RIGHT_ARROW = 39;
   const UP_ARROW = 38;
   const DOWN_ARROW = 39;
+  const W = 87;
+  const A = 65;
+  const S = 83;
+  const D = 68;
 
   const [data, setData] = useState([
     [0, 0, 0, 0],
@@ -246,6 +250,26 @@ function App() {
     }
     switch (event.keyCode) {
       case DOWN_ARROW:
+        swipeDown();
+        break;
+    }
+    switch (event.keyCode) {
+      case A:
+        swipeLeft();
+        break;
+    }
+    switch (event.keyCode) {
+      case D:
+        swipeRight();
+        break;
+    }
+    switch (event.keyCode) {
+      case W:
+        swipeUp();
+        break;
+    }
+    switch (event.keyCode) {
+      case S:
         swipeDown();
         break;
     }
