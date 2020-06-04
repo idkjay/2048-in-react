@@ -1,14 +1,14 @@
 /* eslint-disable default-case */
 import React, { useState, useEffect } from 'react';
 import cloneDeep from 'lodash.clonedeep';
-import { useEvent } from './util'
+import { useEvent, getColors } from './util'
 
 function App() {
 
   const LEFT_ARROW = 37;
   const RIGHT_ARROW = 39;
   const UP_ARROW = 38;
-  const DOWN_ARROW = 39;
+  const DOWN_ARROW = 40;
   const W = 87;
   const A = 65;
   const S = 83;
@@ -272,6 +272,7 @@ function App() {
       case S:
         swipeDown();
         break;
+  
     }
   }
 
@@ -319,10 +320,11 @@ const Block = ({ num }) => {
     <div
       style={{
         ...blockStyle,
+        background: getColors(num),
         color: num === 2 || num === 4 ? "#645B52" : "#F7F4EF",
       }}
     >
-      {num}
+      {num !== 0 ? num : ""}
     </div>
   );
 };
