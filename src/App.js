@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { useState, useEffect } from 'react';
 import cloneDeep from 'lodash.clonedeep';
 import { useEvent } from './util'
@@ -7,6 +8,7 @@ function App() {
   const LEFT_ARROW = 37;
   const RIGHT_ARROW = 39;
   const UP_ARROW = 38;
+  const DOWN_ARROW = 39;
 
   const [data, setData] = useState([
     [0, 0, 0, 0],
@@ -182,6 +184,50 @@ function App() {
     }
   };
 
+  const swipeDown = (dummy) => {
+    console.log(data);
+    let b = cloneDeep(data);
+    let oldData = JSON.parse(JSON.stringify(data));
+    for (let i = 3; i >= 0; i--) {
+      let slow = b.length - 1;
+      let fast = slow - 1;
+      while (slow > 0) {
+        if (fast === -1) {
+          fast = slow - 1;
+          slow--;
+          continue;
+        }
+        if (b[slow][i] === 0 && b[fast][i] === 0) {
+          fast--;
+        } else if (b[slow][i] === 0 && b[fast][i] !== 0) {
+          b[slow][i] = b[fast][i];
+          b[fast][i] = 0;
+          fast--;
+        } else if (b[slow][i] !== 0 && b[fast][i] === 0) {
+          fast--;
+        } else if (b[slow][i] !== 0 && b[fast][i] !== 0) {
+          if (b[slow][i] === b[fast][i]) {
+            b[slow][i] = b[slow][i] + b[fast][i];
+            b[fast][i] = 0;
+            fast = slow - 1;
+            slow--;
+          } else {
+            slow--;
+            fast = slow - 1;
+          }
+        }
+      }
+    }
+    if (JSON.stringify(b) !== JSON.stringify(oldData)) {
+      addNumber(b);
+    }
+    if (dummy) {
+      return b;
+    } else {
+      setData(b);
+    }
+  };
+
   const handleKeyDown = event =>{
     switch (event.keyCode) {
       case LEFT_ARROW:
@@ -191,6 +237,16 @@ function App() {
     switch (event.keyCode) {
       case RIGHT_ARROW:
         swipeRight();
+        break;
+    }
+    switch (event.keyCode) {
+      case UP_ARROW:
+        swipeUp();
+        break;
+    }
+    switch (event.keyCode) {
+      case DOWN_ARROW:
+        swipeDown();
         break;
     }
   }
