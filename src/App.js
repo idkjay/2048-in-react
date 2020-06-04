@@ -327,6 +327,20 @@ function App() {
   };
   //reset
 
+  const resetGame = () => {
+    setGameOver(false);
+    const emptyGrid = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ];
+
+    addNumber(emptyGrid);
+    addNumber(emptyGrid);
+    setData(emptyGrid);
+  };
+
   useEffect(() => {
     initialize();
   }, [])
@@ -334,28 +348,98 @@ function App() {
   useEvent("keydown", handleKeyDown);
 
   return (
-    <div
-      style={{
-        background: "#AD9D8F",
-        width: "max-content",
-        margin: "auto",
-        padding: 5,
-        borderRadius: 5,
-        marginTop: 10
-      }}
-    >
-      {data.map((row, oneIndex) => {
-        return (
-          <div style={{ display: "flex"}} key={oneIndex}>
-            {row.map((digit, index) => (
-              <Block 
-                num={digit}
-                key={index}
-              />
-            ))}
+    <div className="App">
+      <div
+        style={{
+          width: 345,
+          margin: "auto",
+          marginTop: 30,
+        }}
+      >
+        <div style={{ display: "flex" }}>
+          <div
+            style={{
+              fontFamily: "sans-serif",
+              flex: 1,
+              fontWeight: "700",
+              fontSize: 60,
+              color: "#776e65",
+            }}
+          >
+            2048
           </div>
-        );
-      })}
+          <div
+            style={{
+              flex: 1,
+              marginTop: "auto",
+            }}
+          >
+            <div onClick={resetGame} style={style.newGameButton}>
+              NEW GAME
+            </div>
+          </div>
+        </div>
+        <div
+          style={{
+            background: "#AD9D8F",
+            width: "max-content",
+            height: "max-content",
+            margin: "auto",
+            padding: 5,
+            borderRadius: 5,
+            marginTop: 10,
+            position: "relative",
+          }}
+        >
+          {gameOver && (
+            <div style={style.gameOverOverlay}>
+              <div>
+                <div
+                  style={{
+                    fontSize: 30,
+                    fontFamily: "sans-serif",
+                    fontWeight: "900",
+                    color: "#776E65",
+                  }}
+                >
+                  Game Over
+                </div>
+                <div>
+                  <div
+                    style={{
+                      flex: 1,
+                      marginTop: "auto",
+                    }}
+                  >
+                    <div onClick={resetGame} style={style.tryAgainButton}>
+                      Try Again
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          {data.map((row, oneIndex) => {
+            return (
+              <div style={{ display: "flex" }} key={oneIndex}>
+                {row.map((digit, index) => (
+                  <Block num={digit} key={index} />
+                ))}
+              </div>
+            );
+          })}
+        </div>
+
+        <div style={{ width: "inherit" }}>
+          <p class="game-explanation">
+            <strong class="important">How to play:</strong> Use your{" "}
+            <strong>arrow keys</strong> or the <strong>WASD keys</strong> to move the tiles. When two tiles with
+            the same number touch, they <strong>merge into one!</strong>
+          
+          </p>
+            The <strong>objective</strong> is to achieve a <strong>2048</strong> tile!
+        </div>
+      </div>
     </div>
   );
 }
@@ -388,7 +472,41 @@ const style = {
     fontSize: 45,
     fontWeight: "800",
     color: "white",
-  }
-}
+  },
+  newGameButton: {
+    padding: 10,
+    background: "#846F5B",
+    color: "#F8F5F0",
+    width: 95,
+    borderRadius: 7,
+    fontWeight: "900",
+    marginLeft: "auto",
+    marginBottom: "auto",
+    cursor: "pointer",
+  },
+  tryAgainButton: {
+    padding: 10,
+    background: "#846F5B",
+    color: "#F8F5F0",
+    width: 80,
+    borderRadius: 7,
+    fontWeight: "900",
+    cursor: "pointer",
+    margin: "auto",
+    marginTop: 20,
+  },
+  gameOverOverlay: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    left: 0,
+    top: 0,
+    borderRadius: 5,
+    background: "rgba(238,228,218,.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+};
 
 export default App;
