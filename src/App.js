@@ -239,6 +239,16 @@ function App() {
         swipeRight();
         break;
     }
+    switch (event.keyCode) {
+      case UP_ARROW:
+        swipeUp();
+        break;
+    }
+    switch (event.keyCode) {
+      case DOWN_ARROW:
+        swipeDown();
+        break;
+    }
   }
 
   // check game over
