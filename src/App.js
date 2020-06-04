@@ -22,7 +22,7 @@ function App() {
   ])
 
   const [gameOver, setGameOver] = useState(false);
-  
+
   //initialize
   const initialize = () => {
     let newGrid = cloneDeep(data);
@@ -40,22 +40,29 @@ function App() {
     let added = false;
     let gridFull = false;
     let attempts = 0;
-
     while (!added) {
       if (gridFull) {
         break;
       }
 
-      let random1 = Math.floor(Math.random() * 4);
-      let random2 = Math.floor(Math.random() * 4);
+      let rand1 = Math.floor(Math.random() * 4);
+      let rand2 = Math.floor(Math.random() * 4);
       attempts++;
-
-      if (newGrid[random1][random2] === 0) {
-        newGrid[random1][random2] = Math.random() > 0.5 ? 2 : 4;
+      if (newGrid[rand1][rand2] === 0) {
+        newGrid[rand1][rand2] = Math.random() > 0.5 ? 2 : 4;
         added = true;
       }
+      if (attempts > 50) {
+        gridFull = true;
+        let gameOverr = checkIfGameOver();
+        if (gameOverr) {
+          alert("GAME OVER");
+          // setGameOver(true);
+        }
+        // setGameOver(true);
+      }
     }
-  }
+  };
   //swipe right, left, up, down
   const swipeLeft = (dummy) => {
     let oldGrid = data;
@@ -235,6 +242,10 @@ function App() {
   };
 
   const handleKeyDown = event =>{
+    if (gameOver) {
+      return;
+    }
+
     switch (event.keyCode) {
       case LEFT_ARROW:
         swipeLeft();
@@ -280,10 +291,9 @@ function App() {
 
     let gameOverr = checkIfGameOver();
     if (gameOverr) {
+      alert("GAME OVER")
       setGameOver(true);
     }
-
-
   }
 
   // check game over
@@ -297,9 +307,6 @@ function App() {
     }
 
     let checker2 = swipeDown(true);
-    console.log("CHECKER DOWN");
-    console.table(data);
-    console.table(checker2);
     if (JSON.stringify(data) !== JSON.stringify(checker2)) {
       return false;
     }
